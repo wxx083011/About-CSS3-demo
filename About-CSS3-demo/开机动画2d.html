@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				
+			}
+			html,body{
+				height: 100%;
+				overflow: hidden;
+			}
+			.wrap{
+				height: 100%;
+				overflow: hidden;
+				background: gray;
+			}
+			
+			.wrap .inner{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate3d(-50%,-50%,0);
+			}
+			.wrap .inner>span{
+				position: relative;
+			}
+			@keyframes move{
+				from{
+					top: 0;
+				}
+				to{
+					top: -10px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="inner">
+			<span>啊</span>
+			<span>啊</span>
+			<span>啊</span>
+			<span>啊</span>
+			<span>啊</span>
+			<span>啊</span>
+			<span>啊</span></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload = function(){
+			var spanNode = document.querySelectorAll('.wrap .inner>span')
+			var arr=[ "red","orange","yellow","green","blue","pink","deeppink"]
+			for(var i=0;i<spanNode.length;i++){
+				spanNode[i].style.color = arr[i%arr.length];
+				spanNode[i].style.animation = "move .2s "+(i*0.1)+"s infinite linear alternate";
+			}
+		}
+		
+		
+	</script>
+</html>

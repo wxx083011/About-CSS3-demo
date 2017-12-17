@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+				width: 50px;
+				height: 250px;
+				border: 1px solid;
+				overflow: hidden;
+			}
+			
+			#light{
+				height: 500px;
+				background-image:repeating-linear-gradient(135deg ,black 0 , black 10px ,white 10px, white 20px) ;
+				transition:4s ;
+			}
+			
+			
+			#wrap:hover #light{
+				margin-top: -250px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="light"></div>
+		</div>
+	</body>
+	
+</html>

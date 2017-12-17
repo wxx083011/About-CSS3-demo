@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+      *{
+		  margin : 0;
+		  padding:0;
+	  }
+
+		</style>
+		<script>
+			window.onload = function () {
+				
+				var canvas = document.querySelector('canvas');
+				/*给画布的宽高都设置为全屏幕*/
+				canvas.width = document.documentElement.clientWidth;
+				canvas.height = document.documentElement.clientHeight;
+				/*获得画笔,并开始绘制*/
+				if(canvas.getContext){
+					/*定义/获取DOM元素*/
+					var ctx = canvas.getContext('2d');
+					var flag = 0;
+					var value = 0;
+					var chuizhi = canvas.height;
+					/*开一个定时器来放每次变化的图片和不断行走*/
+					setInterval(function(){
+						
+						flag++;//每次图片都换一次，只有八张循环
+						if(flag>8){
+							flag = 1;
+						}
+						
+					/*每次进来都清一次画布*/	
+					ctx.clearRect(0,0,canvas.width,canvas.height);//清除整个画布 之前的痕迹
+					
+					/*开始画飞鸟，在画布里面img中不断换图片，并且不断移动画布*/
+					ctx.beginPath();
+				    var img = new  Image();//获得画布的图片
+                    img.src = 'img/q_r'+flag+'.jpg';//画布不断的换图片
+                    img.onload = function () {//图片要加载完了再能操作
+						draw(this);//定义一个操作图片位置宽高的函数
+						value +=10;//每次操作都移动十步
+						chuizhi -=10; 
+                    }
+                    
+                    
+					},100)
+					
+                }
+                function draw(img){
+				ctx.drawImage(img,value,chuizhi)
+//换图片，drawImage(image要操作的图片, x对象的起始, y是对象的其实位置, width， height设置图片的宽高)
+                   }
+
+
+            }
+		</script>
+	</head>
+	<body>
+	<canvas width="400" height="400">
+		您的浏览器不支持canvas画布 请你换成萌萌的谷歌浏览器
+	</canvas>
+	</body>
+</html>

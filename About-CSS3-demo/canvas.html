@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        canvas{
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+    <script>
+
+        var canvas = document.querySelector('canvas');
+        if (canvas.getContext){
+            var ctx = canvas.getContext('2d');
+            canvas.width = document.documentElement.clientWidth;
+            canvas.height = document.documentElement.clientHeight;
+            window.onresize = function () {
+                canvas.width = document.documentElement.clientWidth;
+                canvas.height = document.documentElement.clientHeight;
+            }
+            
+            function Rain() {
+            };
+            Rain.prototype = {
+                start:function () {
+                    this.x = Math.random()*canvas.width;
+                    this.y = Math.random()*canvas.height*0.2;
+                    this.speed = Math.random()*5+5;
+                    this.h = Math.random()*canvas.height*0.1+canvas.height*0.8;
+                    this.r = Math.random()*2+6;
+                    this.a = 1;
+                },
+                draw:function () {
+                    if (this.y>this.h){
+                        //画圆
+                        ctx.strokeStyle = 'rgba(0,255,255,'+this.a+')';
+                        ctx.beginPath();
+                        ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+                        ctx.stroke();
+                        ctx.save();
+                    }else {
+                        //画点
+                        ctx.fillStyle = '#3fc';
+                        ctx.fillRect(this.x,this.y,2,10);
+                    }
+
+                },
+                update:function () {
+                    if (this.y<this.h){
+                        this.y += this.speed;
+                    }else {
+                        if (this.a>0.01){
+                            this.r +=1;
+                            if (this.r>50){
+                                this.a =this.a*0.9
+                            }
+                        }else {
+                            //重新绘制
+                            this.start();
+                        }
+                    }
+                }
+            };
+
+            var rain = new Rain();
+            rain.start();
+            setInterval(function () {
+                rain.update();
+//                ctx.clearRect(0,0,canvas.width,canvas.height);
+                ctx.fillStyle = 'rgba(0,0,0,.2)';
+                ctx.fillRect(0,0,canvas.width,canvas.height);
+                rain.draw();
+            },1000/60);
+
+//            var rains = [];
+//            for (var i = 0; i < 30; i++){
+//                var rain = new Rain();
+//                rain.start();
+//                rains.push(rain);
+//            }
+////            console.log(rains);
+//            setInterval(function () {
+//                ctx.fillStyle = 'rgba(0,0,0,0.2)';
+//                ctx.fillRect(0,0,canvas.width,canvas.height);
+//                for (var i = 0; i < rains.length; i++){
+//                    rains[i].update();
+//                    rains[i].draw();
+//                }
+//            },1000/60);
+
+        }
+    </script>
+</html>

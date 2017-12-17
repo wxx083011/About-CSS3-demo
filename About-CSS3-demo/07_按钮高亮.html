@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#test{
+				transition:1s ;
+				
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+				width: 58px;
+				height: 26px;
+				background: gray;
+				
+				box-shadow: 4px 4px 5px black;
+				border-top:1px solid black;
+				border-left:1px solid black;
+				padding: 5px;
+				font:bold  22px helvetica;
+				color: white;
+				line-height: 26px;
+				text-align: center;
+			}
+			#test:hover{
+				cursor: pointer;
+				color: black;
+				background: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="test">Home</div>
+	</body>
+	<script type="text/javascript">
+//		alert(1);
+	/*	
+	 	浏览器渲染引擎读取css的代码速度极快
+		可是最终到页面上去渲染的时候,是比较慢的
+			(可能是在css代码读取完毕的后几百微妙才去真正的在页面是开始绘制图形)
+	*/
+	</script>
+</html>

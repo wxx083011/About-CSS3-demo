@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			/*包裹区域*/
+			#wrap{
+				width: 300px;
+				height: 200px;
+				padding: 200px;
+				border: 1px solid;
+				margin: 100px auto;
+				perspective: 200px;
+			}
+			/*#wrap:hover .box{
+				transform: rotateY(360deg);
+			}*/
+			
+			/*盒子*/
+			#wrap .box{
+				transform-style: preserve-3d;
+				position: relative;
+				width: 300px;
+				height: 300px;
+				transition: 1s transform;
+			}
+			
+			/*控制面*/
+			#wrap .box > div{
+				position: absolute;
+				width: 300px;
+				height: 300px;
+				line-height: 100px;
+				text-align: center;
+			backface-visibility: hidden;
+				background: pink;
+				border: 1px solid;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="box"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			    var wrapNode = document.querySelector("#wrap");
+			    var boxNode = document.querySelector("#wrap .box");
+			    var deg = 0;
+			    	setInterval(function(){
+			    		deg++;
+			    		boxNode.style.transform = "rotateY("+(-deg)+"deg)"
+			    	},50)
+			    	
+			    
+			 createLZ(12);
+			function createLZ(n){
+				var wrapNode = document.querySelector("#wrap");
+				var boxNode = document.querySelector("#wrap .box");
+				var styleNode = document.createElement("style");
+				var divText = "";
+				var cssText ="";
+				 
+				var z = -(boxNode.offsetWidth/2)*Math.tan((180-360/n)/2*Math.PI/180).toFixed(4);
+				for(var i=0;i<n;i++){
+					divText+="<div>"+(i+1)+"</div>";
+					cssText +="#wrap .box > div:nth-child("+(i+1)+"){transform:rotateY("+(360/n)*i+"deg) ;}"
+				    
+				}
+				cssText+="#wrap .box{transform-origin: center center "+z+"px;}";
+				cssText+="#wrap .box > div{transform-origin: center center "+z+"px;}";
+				 
+				boxNode.innerHTML = divText;
+				styleNode.innerHTML = cssText;
+				
+				document.head.appendChild(styleNode);
+			}
+			
+		}
+		
+	</script>
+</html>

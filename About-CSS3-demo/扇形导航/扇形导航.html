@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		1.首先要定义一个大盒子,然后在定义一个盒子放照片,然后再定义一个盒子放home
+		2.css部分把整个大盒子设置成home的大小定位到右下角,然后吧照片都浮动了把home的层级提高到最上面
+		3.在js里面.最主要的结构就是利用flag来判断home是要逆时针还是顺时针转动,true则是逆时针
+		  在js中第二个是要根据度数和半径来获得每个小图片的宽高 写成一个函数
+		  函数:每个图标都要根据度数和半径来获取宽高根据cos和sin计算
+		  在获取的宽高时,在flag的各自函数中添加,每个图标在延时的时候,分别到的位置
+		  
+		  
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				position: fixed;
+		        bottom: 20px;
+		        right: 20px;
+				width: 50px;
+				height: 50px;
+				/*margin: 4px;*/
+			}
+			#wrap .list{
+				height: 100%;
+				
+			}
+			#wrap .list>img{
+				position: absolute;
+				border-radius: 50%;
+				top: 0;
+				left: 0;
+				margin: 4px;
+				border-radius: 50%;
+				
+			}
+			#wrap .home{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 50px;
+				height: 50px;
+				background: url(img/home.png) no-repeat;
+				z-index: 1;
+				border-radius: 50%;
+				transition: 1s;
+			}
+			
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+//				先获得图中的home然后设置一个flag初始值为true，如果是是true就逆着转720
+//				如果是flag就顺着转720，然后每次执行完都给flag取反，这样就可以可以判断是打开还是关闭
+				var wrapNode = document.querySelector('#wrap');
+				var homeNode = document.querySelector('.home');
+				var imgsNode = document.querySelectorAll('.list>img');
+				var flag = true;
+				var r = -140;//因为原点在下方，要反方向就在r上取反
+				//前一半
+				homeNode.onclick = function(){
+					if(flag){
+						homeNode.style.transform = 'rotate(-720deg)';
+						for(var i= 0;i<imgsNode.length;i++){//点击的时候就图标依次出现
+
+							imgsNode[i].style.left = getPoint(r,i*90/(imgsNode.length-1)).left+'px';
+							imgsNode[i].style.top = getPoint(r,i*90/(imgsNode.length-1)).top+'px';
+							imgsNode[i].style.transition=".1s "+(i*1)+"s ";//给每次图标出来的时候都加一个延时
+							
+						}
+					}else{
+						homeNode.style.transform = 'rotate(720deg)'
+						for(var i= 0;i<imgsNode.length;i++){
+						imgsNode[i].style.transition=".1s "+((imgsNode.length-1-i)*1)+"s ";
+						imgsNode[i].style.left = 0+"px";
+						imgsNode[i].style.top = 0+"px";
+					}
+					}
+					flag =!flag
+				}
+				
+				function getPoint(r,deg){
+					var left = 0;
+					var top = 0;
+					left= r*Math.sin(deg*Math.PI/180);//left=r*sin22.5°  转方式22.5°=22.5°*pi/180
+					top= r*Math.cos(deg*Math.PI/180);//top=r*cos22.5°  转方式22.5°=22.5°*pi/180
+				
+					return{left:left,top:top};//要用中括号
+				}
+				
+				//后一半逻辑
+				function fn(){
+					this.style.transform="rotate(-1440deg) scale(1)";
+					this.style.opacity=1;
+					this.removeEventListener("transitionend",fn);
+				}
+				
+				for(var i=0;i<imgsNode.length;i++){
+					imgsNode[i].onclick=function(){//图标出来后的点击事件
+						this.style.transition=".5s";
+						this.style.transform="rotate(-1440deg) scale(2)";//点击的时候放大一倍
+						this.style.opacity=0.1;//放大时图标透明
+						
+						this.addEventListener("transitionend",fn);//完成了变化
+					}
+					
+				}
+				
+								
+			}
+		</script>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="list">
+				<img src="img/clos.png" alt="" />
+				<img src="img/full.png" alt="" />
+				<img src="img/open.png" alt="" />
+				<img src="img/prev.png" alt="" />
+				<img src="img/clos.png" alt="" />
+			</div>
+			<div class="home"></div>
+		</div>
+	</body>
+	
+</html>

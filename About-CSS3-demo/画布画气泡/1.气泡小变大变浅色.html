@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background: gray;
+			}
+			canvas{
+				background: wheat;
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				margin: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas  width="400" height="400"></canvas>
+	</body>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oc = document.querySelector('canvas');
+			if (oc.getContext) {
+				var ctx  = oc.getContext('2d');
+				
+				/*随机生成圆心和颜色*/
+//			   设置一个对象,每一个对象就是一个圆
+                 /* var一个新的数组,定时器,在定时器中不断的给这个数组加一个对象
+                   对象里面是一个随机生成圆的坐标x,y的对象,
+                    用一个for来循环数组,把数组里面的对象每次都赋给画圆的数*/
+              var arr = [];
+              
+              
+              setInterval(function(){
+              	ctx.clearRect(0,0,oc.width,oc.height);
+              	
+              	for (var i = 0;i<arr.length;i++) {
+              		arr[i].r++;
+              		arr[i].a -=0.01;
+              		
+              	}
+              	
+              	for(var i = 0;i<arr.length;i++){
+              	ctx.fillStyle = 'rgba('+ arr[i].yr+','+arr[i].g+','+arr[i].b+','+arr[i].a+' )'
+              	ctx.beginPath();
+              	ctx.arc(arr[i].x,arr[i].y,arr[i].r,0,Math.PI*2);
+              	ctx.fill();
+              	
+              }
+              },1000/60)
+              
+              /*维护数据*/
+              setInterval(function(){
+              	/*每次进来都随机生成圆心的坐标，然后都把他们塞进去*/
+              	var x = Math.round(Math.random()*oc.width);
+              	var y = Math.round(Math.random()*oc.height);
+              	var r = 10;
+              	var yr =Math.round(Math.random()*255);
+              	var g =Math.round(Math.random()*255);
+              	var b =Math.round(Math.random()*255);
+              	var a =1;
+              	
+              	arr.push({
+              		x:x,
+              		y:y,
+              		r:r++,
+              		yr:yr,
+              		g:g,
+              		b:b,
+              		a:a
+              		
+              	})
+              	
+              	 
+              	 
+              },100)
+				
+				  
+				  
+				  
+				  
+				
+			}
+		}
+			
+	</script>
+</html>

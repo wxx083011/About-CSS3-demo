@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			/*包裹区域*/
+			#wrap{
+				width: 100px;
+				height: 100px;
+				padding: 100px;
+				border: 1px solid;
+				margin: 150px auto;
+				perspective: 200px;
+			}
+			#wrap:hover .box{
+				transform: rotateY(360deg);
+			}
+			
+			/*盒子*/
+			#wrap .box{
+				transform-style: preserve-3d;
+				position: relative;
+				width: 100px;
+				height: 100px;
+				transition: 2s;
+				transform-origin: center center -28.867513459481287px; 
+			}
+			
+			/*控制面*/
+			#wrap .box > div{
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				line-height: 100px;
+				text-align: center;
+				transform-origin: center center -28.867513459481287px; 
+				backface-visibility: hidden;
+			}
+			#wrap .box > div:nth-child(1){
+				background: red;
+			}
+			#wrap .box > div:nth-child(2){
+				background: orange;
+				transform:rotateY(120deg);
+			}
+			#wrap .box > div:nth-child(3){
+				background: yellow;
+				transform:rotateY(240deg) ;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="box">
+				<div>1</div>
+				<div>2</div>
+				<div>3</div>
+			</div>
+		</div>
+	</body>
+</html>

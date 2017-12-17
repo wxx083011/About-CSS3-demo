@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!--样式表-->
+		<!--
+			checked
+		-->	
+		<style type="text/css">
+			label{
+				position: relative;
+				display: inline-block;
+				/*float: left;*/
+				width: 100px;
+				height: 100px;
+				background: pink;
+				border-radius:50% ;
+			}
+			
+			label > input{
+				position: absolute;
+				left: -50px;
+				top: -50px;
+			}
+			label > span{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				border-radius:50% ;
+			}
+			
+			input:checked + span{
+				background: deeppink;
+			}
+		</style>
+	</head>
+	<body>
+			<label>
+				<input type="radio" name="xfz" />
+				<span></span>
+			</label>
+			<label>
+				<input type="radio" name="xfz" />
+				<span></span>
+			</label>
+			<label>
+				<input type="radio" name="xfz" />
+				<span></span>
+			</label>
+	</body>
+</html>

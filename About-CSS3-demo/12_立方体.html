@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			/*包裹区域*/
+			#wrap{
+				width: 100px;
+				height: 100px;
+				padding: 100px;
+				border: 1px solid;
+				margin: 150px auto;
+				
+			}
+			/*#wrap:hover .box{
+				transform: rotate3d(1,1,1,720deg);
+			}*/
+			
+			/*盒子*/
+			#wrap .box{
+				 
+				position: relative;
+				width: 100px;
+				height: 100px;
+				transition: 2s;
+				transform-origin: center center -50px; 
+				transform-style:preserve-3d; /* 默认flat 2D */
+				transform:rotateX(-30deg) rotateY(-70deg); 
+				animation:rotate 20s infinite linear; /*播放时间 播放次数为循环 缓动效果为匀速 */
+			}
+			
+			/*控制面*/
+			#wrap .box > div{
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				line-height: 100px;
+				text-align: center;
+				transform-origin:  center center -50px; 
+				backface-visibility: hidden;
+			}
+			#wrap .box > div:nth-child(1){
+				background: red;
+			}
+			#wrap .box > div:nth-child(2){
+				background: orange;
+				transform:rotateY(180deg) rotate(180deg) ;
+			}
+			#wrap .box > div:nth-child(3){
+				background: yellow;
+				transform:rotateY(270deg) ;
+			}
+			#wrap .box > div:nth-child(4){
+				background: green;
+				transform:rotateY(90deg) ;
+			}
+			#wrap .box > div:nth-child(5){
+				background: blue;
+				transform:rotateX(90deg) ;
+			}
+			#wrap .box > div:nth-child(6){
+				background: pink;
+				transform:rotateX(270deg) ;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="box">
+				<div>前</div>
+				<div>后</div>
+				<div>左</div>
+				<div>右</div>
+				<div>上</div>
+				<div>下</div>
+			</div>
+		</div>
+	</body>
+</html>

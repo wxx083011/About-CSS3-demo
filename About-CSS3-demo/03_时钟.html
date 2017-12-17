@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>0725时钟</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style: none;
+			}
+			#wrap{
+				position: relative;
+				width: 200px;
+				height: 200px;
+				border: 1px solid;
+				border-radius:50% ;
+				margin: 100px auto;
+			}
+			#wrap .list{
+				position: relative;
+				height: 100%;
+			}
+			#wrap .list > li{
+				position: absolute;
+				left: 99px;
+				top:0;
+				width: 2px;
+				height: 8px;
+				background: black;
+				transform-origin: center 100px; 
+			}
+			#wrap .list > li:nth-child(5n+1){
+				height: 13px;
+			}
+			#wrap > div{
+				position: absolute;
+			}
+			#wrap .hour{
+				left:97px ;
+				top: 70px;
+				width: 6px;
+				height: 30px;
+				background: black;
+				transform-origin: center 30px;
+			}
+			#wrap .min{
+				left:98px ;
+				top: 50px;
+				width: 4px;
+				height: 50px;
+				background: gray;
+				transform-origin: center 50px;
+			}
+			#wrap .sec{
+				left:99px ;
+				top: 30px;
+				width: 2px;
+				height: 70px;
+				background: red;
+				transform-origin: center 70px;
+			}
+			#wrap .icon{
+				left: 90px;
+				top: 90px;
+				width: 20px;
+				height: 20px;
+				background: pink;
+				border-radius: 50%;
+			}
+		</style>
+	</head>
+	<body>
+		<!--表盘-->
+		<div id="wrap">
+			<!--刻度-->
+			<ul class="list">
+			</ul>
+			<!--时针-->
+			<div class="hour"></div>
+			<!--分针-->
+			<div class="min"></div>
+			<!--秒针-->
+			<div class="sec"></div>
+			<!--圆盘-->
+			<div class="icon"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var ulNode = document.querySelector("#wrap .list");
+			var styleNode = document.createElement("style");//添加style元素来加样式
+			
+			var liText ="";//先给li标签初始化
+			var cssText ="";
+			for(var i=0;i<60;i++){
+//				var liNode = document.createElement("li");
+//				ulNode.appendChild(liNode);
+				liText+="<li></li>";//加60次的li
+				cssText+="#wrap .list > li:nth-child("+(i+1)+"){transform: rotate("+(6*i)+"deg);}";
+			//给li分布在边上
+			}
+			ulNode.innerHTML=liText;//把60个li都加到ul标签中
+			styleNode.innerHTML=cssText;//把每个刻度都添加样式到style中
+			document.head.appendChild(styleNode);//再把这个style加到head中，要获得head和body要从document中获得document要获得
+			
+			
+			
+			//move
+			var hourNode = document.querySelector("#wrap .hour");
+			var minNode = document.querySelector("#wrap .min");
+			var secNode = document.querySelector("#wrap .sec");
+			move();
+			function move(){
+				获得当前的
+				var date = new Date();
+				var s = date.getSeconds();
+				var m = date.getMinutes()+s/60;
+				var h = date.getHours()+m/60;
+				
+				
+				
+				hourNode.style.transform="rotate("+(h*30)+"deg)";
+				minNode.style.transform="rotate("+(m*6)+"deg)";
+				secNode.style.transform="rotate("+(s*6)+"deg)";
+			}
+			setInterval(move,1000);
+		}
+	</script>
+</html>
